@@ -2,8 +2,13 @@ package com.example.recyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.recyclerview.databinding.ActivityMainBinding
+import com.example.recyclerview.databinding.ListItemBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     val superheroeslist = listOf(
         SuperHero("Spiderman", "Peter Parker", "Marvel", "https://cursokotlin.com/wp-content/uploads/2017/07/spiderman.jpg"),
@@ -19,6 +24,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)//        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
+
+        initRecycler()
+    }
+
+    fun initRecycler(){
+        binding.rvSuperHero.layoutManager = LinearLayoutManager(this)
+        val adapter = HeroAdapter(superheroeslist)
+        binding.rvSuperHero.adapter = adapter
     }
 }
